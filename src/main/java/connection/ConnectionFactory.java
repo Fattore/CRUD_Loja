@@ -11,8 +11,8 @@ import java.util.logging.Logger;
 public class ConnectionFactory {
         
     private static final String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver"; // chama o driver
-    private static final String URL = "jdbc:sqlserver://localhost:1433;databaseName=Loja_Stefano"; // chama nosso localhost + a porta de entrada + nome do BD + timezone(região do mundo)
-    private static final String USER = "FRATTY/thefa";
+    private static final String URL = "jdbc:sqlserver://localhost:1433;databaseName=Loja"; // chama nosso localhost + a porta de entrada + nome do BD + timezone(região do mundo)
+    private static final String USER = "Fratty";
     private static final String PASS = "tfg548788";
     
     public static Connection getConnection() {

@@ -11,15 +11,15 @@ public class Clientes {
     private String email;
 
     /*setters*/
-    public void setCodigo(int COD) {
+    public void setCodigo(int COD){
         this.codigo = COD;
     }
 
-    public void setNome(String Nome) {
+    public void setNome(String Nome){
         this.nome = Nome;
     }
 
-    public void setNascimento(Date Nascimento) {
+    public void setNascimento(Date Nascimento){
         this.nascimento = Nascimento;
     }
     
@@ -27,7 +27,7 @@ public class Clientes {
         this.endereco = Endereco;
     }
     
-    public void setTelefone(String Telefone) {
+    public void setTelefone(String Telefone){
         this.telefone = Telefone;
     }
     
@@ -36,15 +36,15 @@ public class Clientes {
     }
     
     /*getters*/
-    public int getCodigo() {
+    public int getCodigo(){
         return codigo;
     }
     
-    public String getNome() {
+    public String getNome(){
         return nome;
     }
     
-    public Date getNascimento() {
+    public Date getNascimento(){
         return nascimento;
     }
     
@@ -52,7 +52,7 @@ public class Clientes {
         return endereco;
     }
     
-    public String getTelefone() {
+    public String getTelefone(){
         return telefone;
     }
     
