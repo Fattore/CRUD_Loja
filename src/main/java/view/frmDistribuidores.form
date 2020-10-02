@@ -43,9 +43,9 @@
                               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="lblNome" min="-2" pref="110" max="-2" attributes="0"/>
+                              <Component id="lblNomeFant" min="-2" pref="110" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="txtNome" max="32767" attributes="0"/>
+                              <Component id="txtNomeFant" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="lblTelefone" min="-2" pref="110" max="-2" attributes="0"/>
@@ -63,14 +63,9 @@
                               <Component id="txtCodigo" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="lblNascimento" min="-2" pref="110" max="-2" attributes="0"/>
+                              <Component id="lblRazaoSoc" min="-2" pref="110" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="txtNascimento" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="lblEndereco" min="-2" pref="110" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="txtEndereco" max="32767" attributes="0"/>
+                              <Component id="txtRazaoSoc" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -96,20 +91,15 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblNome" alignment="3" max="32767" attributes="0"/>
-                  <Component id="txtNome" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblNomeFant" alignment="3" max="32767" attributes="0"/>
+                  <Component id="txtNomeFant" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblNascimento" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtNascimento" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblRazaoSoc" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtRazaoSoc" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblEndereco" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtEndereco" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="txtTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -119,7 +109,7 @@
                   <Component id="txtEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblEmail" alignment="3" pref="23" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="376" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -159,7 +149,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExcluirActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtNome">
+    <Component class="javax.swing.JTextField" name="txtNomeFant">
     </Component>
     <Component class="javax.swing.JTextField" name="txtEmail">
     </Component>
@@ -173,22 +163,16 @@
         <Component class="javax.swing.JTable" name="grdClientes">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="6" rowCount="4">
+              <Table columnCount="5" rowCount="4">
                 <Column editable="false" title="C&#xf3;digo" type="java.lang.Object"/>
-                <Column editable="false" title="Nome" type="java.lang.Object"/>
-                <Column editable="false" title="Nascimento" type="java.lang.Object"/>
-                <Column editable="false" title="Endere&#xe7;o" type="java.lang.Object"/>
-                <Column editable="true" title="Telefone" type="java.lang.Object"/>
-                <Column editable="true" title="Email" type="java.lang.Object"/>
+                <Column editable="false" title="Nome Fantasia" type="java.lang.Object"/>
+                <Column editable="false" title="Raz&#xe3;o Social" type="java.lang.Object"/>
+                <Column editable="false" title="Telefone" type="java.lang.Object"/>
+                <Column editable="false" title="Email" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
@@ -226,14 +210,14 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="lblNome">
+    <Component class="javax.swing.JLabel" name="lblNomeFant">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nome:"/>
+        <Property name="text" type="java.lang.String" value="Nome Fantasia:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblNascimento">
+    <Component class="javax.swing.JLabel" name="lblRazaoSoc">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nascimento:"/>
+        <Property name="text" type="java.lang.String" value="Raz&#xe3;o Social:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblEmail">
@@ -251,7 +235,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTelefoneActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtNascimento">
+    <Component class="javax.swing.JTextField" name="txtRazaoSoc">
     </Component>
     <Component class="javax.swing.JLabel" name="lblCodigo">
       <Properties>
@@ -259,13 +243,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtCodigo">
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblEndereco">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Endere&#xe7;o:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtEndereco">
     </Component>
   </SubComponents>
 </Form>

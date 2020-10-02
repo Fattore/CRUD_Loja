@@ -22,7 +22,7 @@ public class ProdutosDAO {
             stmt.setInt(1,prod.getCodigoProd());
             stmt.setFloat(2,prod.getPrecoVenda());
             stmt.setString(3,prod.getDescricao());
-            stmt.setDate(4, (Date) prod.getValidade());
+            stmt.setDate(4, (Date) prod.getDataValidade());
             stmt.setFloat(5,prod.getPrecoCusto());
             stmt.setInt(6,prod.getEstoque());
             stmt.setInt(7,prod.getCodigoDist());
@@ -56,7 +56,7 @@ public class ProdutosDAO {
                 prod.setCodigoProd(rs.getInt("COD_Prod"));
                 prod.setPrecoVenda(rs.getFloat("Preco_Venda"));
                 prod.setDescricao(rs.getString("Descricao"));
-                prod.setValidade(rs.getDate("Data_Validade"));
+                prod.setDataValidade(rs.getDate("Data_Validade"));
                 prod.setPrecoCusto(rs.getFloat("Preco_Custo"));
                 prod.setEstoque(rs.getInt("Estoque"));
                 prod.setCodigoDist(rs.getInt("COD_Dist"));

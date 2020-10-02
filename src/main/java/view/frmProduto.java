@@ -1,6 +1,6 @@
 package view;
 
-import DAO.ClientesDAO;
+import DAO.ProdutosDAO;
 import connection.ConnectionFactory;
 import utilities.*;
 import java.sql.Connection;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
-import objects.Clientes;
+import objects.Produtos;
 
 public class frmProduto extends javax.swing.JFrame {
 
@@ -24,19 +24,20 @@ public class frmProduto extends javax.swing.JFrame {
 
     public void carregarGrade()
     {
-        ClientesDAO cliDAO = new ClientesDAO();
+        ProdutosDAO prodDAO = new ProdutosDAO();
         
         DefaultTableModel modelo = (DefaultTableModel) grdClientes.getModel();
         modelo.setNumRows(0);
         
-        for(Clientes cli: cliDAO.read()){
+        for(Produtos prod: prodDAO.read()){
             modelo.addRow(new Object[]{
-                cli.getCodigo(),
-                cli.getNome(),
-                cli.getNascimento(),
-                cli.getEndereco(),
-                cli.getTelefone(),
-                cli.getEmail()});
+                prod.getCodigoProd(),
+                prod.getPrecoVenda(),
+                prod.getDescricao(),
+                prod.getDataValidade(),
+                prod.getPrecoCusto(),
+                prod.getEstoque(),
+                prod.getCodigoDist()});
         }
     }
  
@@ -48,20 +49,22 @@ public class frmProduto extends javax.swing.JFrame {
         btnNovo = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
-        txtNome = new javax.swing.JTextField();
-        txtEmail = new javax.swing.JTextField();
+        txtEstoque = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         grdClientes = new javax.swing.JTable();
-        lblNome = new javax.swing.JLabel();
-        lblNascimento = new javax.swing.JLabel();
-        lblEmail = new javax.swing.JLabel();
-        lblTelefone = new javax.swing.JLabel();
-        txtTelefone = new javax.swing.JTextField();
-        txtNascimento = new javax.swing.JTextField();
+        lblPrecoV = new javax.swing.JLabel();
+        lblDescricao = new javax.swing.JLabel();
+        lblEstoque = new javax.swing.JLabel();
+        lblPrecoC = new javax.swing.JLabel();
+        txtPrecoC = new javax.swing.JTextField();
+        txtDescricao = new javax.swing.JTextField();
         lblCodigo = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
-        lblEndereco = new javax.swing.JLabel();
-        txtEndereco = new javax.swing.JTextField();
+        lblDataV = new javax.swing.JLabel();
+        txtDataV = new javax.swing.JTextField();
+        lblCodigoDist = new javax.swing.JLabel();
+        txtCodigoDist = new javax.swing.JTextField();
+        txtPrecoV = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,17 +98,17 @@ public class frmProduto extends javax.swing.JFrame {
 
         grdClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Código", "Nome", "Nascimento", "Endereço", "Telefone", "Email"
+                "Código", "Preço Venda", "Descrição", "Data Válidade", "Preço Custo", "Estoque", "Código Dist..."
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, true
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -119,23 +122,19 @@ public class frmProduto extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(grdClientes);
 
-        lblNome.setText("Nome:");
+        lblPrecoV.setText("Preço Venda:");
 
-        lblNascimento.setText("Nascimento:");
+        lblDescricao.setText("Descrição:");
 
-        lblEmail.setText("Email:");
+        lblEstoque.setText("Estoque:");
 
-        lblTelefone.setText("Telefone:");
-
-        txtTelefone.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTelefoneActionPerformed(evt);
-            }
-        });
+        lblPrecoC.setText("Preço Custo:");
 
         lblCodigo.setText("Código:");
 
-        lblEndereco.setText("Endereço:");
+        lblDataV.setText("Data Validade:");
+
+        lblCodigoDist.setText("Código Distribuidor:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -159,35 +158,40 @@ public class frmProduto extends javax.swing.JFrame {
                                 .addComponent(btnConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(21, 21, 21))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblPrecoV, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtNome))
+                                .addComponent(txtPrecoV)
+                                .addGap(10, 10, 10))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblPrecoC, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(12, 12, 12)
-                                .addComponent(txtTelefone))
+                                .addComponent(txtPrecoC))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtEmail))
+                                .addComponent(txtEstoque))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtCodigo))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtNascimento))
+                                .addComponent(txtDescricao))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblDataV, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtEndereco)))))
+                                .addComponent(txtDataV))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblCodigoDist, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtCodigoDist)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -199,25 +203,29 @@ public class frmProduto extends javax.swing.JFrame {
                     .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblPrecoV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtPrecoV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNascimento)
-                    .addComponent(txtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblDescricao)
+                    .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEndereco)
-                    .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblDataV)
+                    .addComponent(txtDataV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblTelefone))
+                    .addComponent(txtPrecoC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPrecoC))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(txtEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCodigoDist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCodigoDist, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -228,17 +236,18 @@ public class frmProduto extends javax.swing.JFrame {
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
 
         if(this.ValidacoesCampos()) {
-           Clientes cli = new Clientes();
-           ClientesDAO cliDAO = new ClientesDAO();
+           Produtos prod = new Produtos();
+           ProdutosDAO prodDAO = new ProdutosDAO();
            
-           cli.setCodigo(Integer.parseInt(txtCodigo.getText()));
-           cli.setNome(txtNome.getText());
-           cli.setNascimento(Conversor.StringParaData(txtNascimento.getText()));
-           cli.setEndereco(txtEndereco.getText());
-           cli.setTelefone(txtTelefone.getText());
-           cli.setEmail(txtEmail.getText());
+           prod.setCodigoProd(Integer.parseInt(txtCodigo.getText()));
+           prod.setPrecoVenda(Float.parseFloat(txtPrecoV.getText()));
+           prod.setDescricao(txtDescricao.getText());
+           prod.setDataValidade(Conversor.StringParaData(txtDataV.getText()));
+           prod.setPrecoCusto(Float.parseFloat(txtPrecoC.getText()));
+           prod.setEstoque(Integer.parseInt(txtEstoque.getText()));
+           prod.setCodigoDist(Integer.parseInt(txtCodigoDist.getText()));
 
-           cliDAO.create(cli);
+           prodDAO.create(prod);
            
            this.carregarGrade();
            this.limparCampos();
@@ -247,7 +256,7 @@ public class frmProduto extends javax.swing.JFrame {
 
     private boolean ValidacoesCodigo() {
         if(txtCodigo.getText().trim().isEmpty()) {
-            Mensagem.ExibirMensagemErro("Preencha o código.");
+            Mensagem.ExibirMensagemErro("Preencha o Código.");
             return false;
         } 
       
@@ -260,36 +269,36 @@ public class frmProduto extends javax.swing.JFrame {
     }
         
     private boolean ValidacoesCampos() {
-        if(txtNome.getText().trim().isEmpty()) {
-          Mensagem.ExibirMensagemErro("Preencha o nome.");
+        if(txtPrecoV.getText().trim().isEmpty()) {
+          Mensagem.ExibirMensagemErro("Preencha o Preço da Venda.");
           return false;
         }
 
         if(!ValidacoesCodigo())
           return false;      
 
-        if(txtNascimento.getText().trim().isEmpty()) {
-            Mensagem.ExibirMensagemErro("Preencha a data de nascimento.");
-            return false;
-        }
-      
-        if(!Validador.ValorEDataValida(txtNascimento.getText())) {
-            Mensagem.ExibirMensagemErro("Preencha uma data válida.");
+        if(txtDescricao.getText().trim().isEmpty()) {
+            Mensagem.ExibirMensagemErro("Preencha a Descrição.");
             return false;
         }
        
-        if(txtEndereco.getText().trim().isEmpty()) {
-            Mensagem.ExibirMensagemErro("Preencha o Endereço.");
+        if(txtDataV.getText().trim().isEmpty()) {
+            Mensagem.ExibirMensagemErro("Preencha o Data da Venda.");
             return false;
         }
         
-        if(txtTelefone.getText().trim().isEmpty()) {
-            Mensagem.ExibirMensagemErro("Preencha o Telefone.");
+        if(txtPrecoC.getText().trim().isEmpty()) {
+            Mensagem.ExibirMensagemErro("Preencha o Preço de Custo.");
             return false;
         }
         
-        if(txtEmail.getText().trim().isEmpty()) {
-            Mensagem.ExibirMensagemErro("Preencha o Email.");
+        if(txtEstoque.getText().trim().isEmpty()) {
+            Mensagem.ExibirMensagemErro("Preencha o Estoque.");
+            return false;
+        }
+        
+        if(txtCodigoDist.getText().trim().isEmpty()) {
+            Mensagem.ExibirMensagemErro("Preencha o Código do Distribuidor.");
             return false;
         } 
         return true;
@@ -297,38 +306,41 @@ public class frmProduto extends javax.swing.JFrame {
     
     private void limparCampos() {
         txtCodigo.setText("");
-        txtNome.setText("");
-        txtNascimento.setText("");
-        txtEndereco.setText("");
-        txtTelefone.setText("");
-        txtEmail.setText("");
+        txtPrecoV.setText("");
+        txtDescricao.setText("");
+        txtDataV.setText("");
+        txtPrecoC.setText("");
+        txtEstoque.setText("");
+        txtCodigoDist.setText("");
     }
     
     private void AtribuirValoresGradeParaEdits() {
         int row = grdClientes.getSelectedRow();
         txtCodigo.setText(grdClientes.getModel().getValueAt(row, 1).toString());
-        txtNome.setText(grdClientes.getModel().getValueAt(row, 2).toString());
-        txtNascimento.setText(grdClientes.getModel().getValueAt(row, 3).toString());
-        txtEndereco.setText(grdClientes.getModel().getValueAt(row, 4).toString()); 
-        txtTelefone.setText(grdClientes.getModel().getValueAt(row, 5).toString());
-        txtEmail.setText(grdClientes.getModel().getValueAt(row, 6).toString());
+        txtPrecoV.setText(grdClientes.getModel().getValueAt(row, 2).toString());
+        txtDescricao.setText(grdClientes.getModel().getValueAt(row, 3).toString());
+        txtDataV.setText(grdClientes.getModel().getValueAt(row, 4).toString()); 
+        txtPrecoC.setText(grdClientes.getModel().getValueAt(row, 5).toString());
+        txtEstoque.setText(grdClientes.getModel().getValueAt(row, 6).toString());
+        txtCodigoDist.setText(grdClientes.getModel().getValueAt(row, 7).toString());
     }
     
     
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
        
         if (this.ValidacoesCampos()) {
-           Clientes cli = new Clientes();
-           ClientesDAO cliDAO = new ClientesDAO();
+           Produtos prod = new Produtos();
+           ProdutosDAO prodDAO = new ProdutosDAO();
            
-           cli.setCodigo(Integer.parseInt(txtCodigo.getText()));
-           cli.setNome(txtNome.getText());
-           cli.setNascimento(Conversor.StringParaData(txtNascimento.getText()));
-           cli.setEndereco(txtEndereco.getText());
-           cli.setTelefone(txtTelefone.getText());
-           cli.setEmail(txtEmail.getText());
+           prod.setCodigoProd(Integer.parseInt(txtCodigo.getText()));
+           prod.setPrecoVenda(Float.parseFloat(txtPrecoV.getText()));
+           prod.setDescricao(txtDescricao.getText());
+           prod.setDataValidade(Conversor.StringParaData(txtDataV.getText()));
+           prod.setPrecoCusto(Float.parseFloat(txtPrecoC.getText()));
+           prod.setEstoque(Integer.parseInt(txtEstoque.getText()));
+           prod.setCodigoDist(Integer.parseInt(txtCodigoDist.getText()));
 
-           cliDAO.update(cli);
+           prodDAO.update(prod);
 
            this.carregarGrade();
            this.limparCampos();
@@ -343,12 +355,12 @@ public class frmProduto extends javax.swing.JFrame {
     
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
 
-        Clientes cli = new Clientes();
-        ClientesDAO cliDAO = new ClientesDAO();
+        Produtos prod = new Produtos();
+        ProdutosDAO prodDAO = new ProdutosDAO();
 
-        cli.setCodigo(Integer.parseInt(txtCodigo.getText()));
+        prod.setCodigoProd(Integer.parseInt(txtCodigo.getText()));
             
-        cliDAO.delete(cli);            
+        prodDAO.delete(prod);            
         
         this.carregarGrade();
         this.limparCampos();  
@@ -356,26 +368,27 @@ public class frmProduto extends javax.swing.JFrame {
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         // TODO add your handling code here:
-        ClientesDAO cliDAO = new ClientesDAO();
+        ProdutosDAO prodDAO = new ProdutosDAO();
         
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM Cliente WHERE COD_Cliente = '"+txtCodigo.getText()+"'");
+            stmt = con.prepareStatement("SELECT * FROM Produtos WHERE COD_Prod = '"+txtCodigo.getText()+"'");
             rs = stmt.executeQuery();
             
             while (rs.next()) {
                 
-                Clientes cli = new Clientes();
+                Produtos prod = new Produtos();
                 
-                txtCodigo.setText(rs.getString("COD_Cli"));
-                txtNome.setText(rs.getString("Nome"));                
-                txtNascimento.setText(rs.getString("Data_Nasc"));
-                txtEndereco.setText(rs.getString("Endereco"));
-                txtTelefone.setText(rs.getString("Telefone"));
-                txtEmail.setText(rs.getString("Email"));                
+                txtCodigo.setText(rs.getString("COD_Prod"));
+                txtPrecoV.setText(rs.getString("Preco_Venda"));                
+                txtDescricao.setText(rs.getString("Descricao"));
+                txtDataV.setText(rs.getString("Data_Validade"));
+                txtPrecoC.setText(rs.getString("Preco_Custo"));
+                txtEstoque.setText(rs.getString("Estoque"));
+                txtCodigoDist.setText(rs.getString("COD_Dist"));                  
                 
             }
           
@@ -384,12 +397,10 @@ public class frmProduto extends javax.swing.JFrame {
         } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
-    }//GEN-LAST:event_btnConsultarActionPerformed
-
-    private void txtTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefoneActionPerformed
-
-    }//GEN-LAST:event_txtTelefoneActionPerformed
-
+    }                                        lblPrecoV   private void txtPrecoCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-LAST:event_btnConsultarActionPerformed
+    
+    }
+    
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -406,16 +417,18 @@ public class frmProduto extends javax.swing.JFrame {
     private javax.swing.JTable grdClientes;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCodigo;
-    private javax.swing.JLabel lblEmail;
-    private javax.swing.JLabel lblEndereco;
-    private javax.swing.JLabel lblNascimento;
-    private javax.swing.JLabel lblNome;
-    private javax.swing.JLabel lblTelefone;
+    private javax.swing.JLabel lblCodigoDist;
+    private javax.swing.JLabel lblDataV;
+    private javax.swing.JLabel lblDescricao;
+    private javax.swing.JLabel lblEstoque;
+    private javax.swing.JLabel lblPrecoC;
+    private javax.swing.JLabel lblPrecoV;
     private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtEndereco;
-    private javax.swing.JTextField txtNascimento;
-    private javax.swing.JTextField txtNome;
-    private javax.swing.JTextField txtTelefone;
+    private javax.swing.JTextField txtCodigoDist;
+    private javax.swing.JTextField txtDataV;
+    private javax.swing.JTextField txtDescricao;
+    private javax.swing.JTextField txtEstoque;
+    private javax.swing.JTextField txtPrecoC;
+    private javax.swing.JTextField txtPrecoV;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,6 +1,6 @@
 package view;
 
-import DAO.ClientesDAO;
+import DAO.DistribuidoresDAO;
 import connection.ConnectionFactory;
 import utilities.*;
 import java.sql.Connection;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
-import objects.Clientes;
+import objects.Distribuidores;
 
 public class frmDistribuidores extends javax.swing.JFrame {
 
@@ -24,19 +24,18 @@ public class frmDistribuidores extends javax.swing.JFrame {
 
     public void carregarGrade()
     {
-        ClientesDAO cliDAO = new ClientesDAO();
+        DistribuidoresDAO distDAO = new DistribuidoresDAO();
         
         DefaultTableModel modelo = (DefaultTableModel) grdClientes.getModel();
         modelo.setNumRows(0);
         
-        for(Clientes cli: cliDAO.read()){
+        for(Distribuidores dist: distDAO.read()){
             modelo.addRow(new Object[]{
-                cli.getCodigo(),
-                cli.getNome(),
-                cli.getNascimento(),
-                cli.getEndereco(),
-                cli.getTelefone(),
-                cli.getEmail()});
+                dist.getCodigo(),
+                dist.getNomeFantasia(),
+                dist.getRazaoSocial(),
+                dist.getTelefone(),
+                dist.getEmail()});
         }
     }
  
@@ -48,20 +47,18 @@ public class frmDistribuidores extends javax.swing.JFrame {
         btnNovo = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
-        txtNome = new javax.swing.JTextField();
+        txtNomeFant = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         grdClientes = new javax.swing.JTable();
-        lblNome = new javax.swing.JLabel();
-        lblNascimento = new javax.swing.JLabel();
+        lblNomeFant = new javax.swing.JLabel();
+        lblRazaoSoc = new javax.swing.JLabel();
         lblEmail = new javax.swing.JLabel();
         lblTelefone = new javax.swing.JLabel();
         txtTelefone = new javax.swing.JTextField();
-        txtNascimento = new javax.swing.JTextField();
+        txtRazaoSoc = new javax.swing.JTextField();
         lblCodigo = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
-        lblEndereco = new javax.swing.JLabel();
-        txtEndereco = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,17 +92,17 @@ public class frmDistribuidores extends javax.swing.JFrame {
 
         grdClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Código", "Nome", "Nascimento", "Endereço", "Telefone", "Email"
+                "Código", "Nome Fantasia", "Razão Social", "Telefone", "Email"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, true
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -119,9 +116,9 @@ public class frmDistribuidores extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(grdClientes);
 
-        lblNome.setText("Nome:");
+        lblNomeFant.setText("Nome Fantasia:");
 
-        lblNascimento.setText("Nascimento:");
+        lblRazaoSoc.setText("Razão Social:");
 
         lblEmail.setText("Email:");
 
@@ -134,8 +131,6 @@ public class frmDistribuidores extends javax.swing.JFrame {
         });
 
         lblCodigo.setText("Código:");
-
-        lblEndereco.setText("Endereço:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -159,9 +154,9 @@ public class frmDistribuidores extends javax.swing.JFrame {
                                 .addComponent(btnConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(21, 21, 21))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblNomeFant, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtNome))
+                                .addComponent(txtNomeFant))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(12, 12, 12)
@@ -175,13 +170,9 @@ public class frmDistribuidores extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtCodigo))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblRazaoSoc, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtNascimento))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtEndereco)))))
+                                .addComponent(txtRazaoSoc)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -199,16 +190,12 @@ public class frmDistribuidores extends javax.swing.JFrame {
                     .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblNomeFant, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtNomeFant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNascimento)
-                    .addComponent(txtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEndereco)
-                    .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblRazaoSoc)
+                    .addComponent(txtRazaoSoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -217,7 +204,7 @@ public class frmDistribuidores extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -228,17 +215,16 @@ public class frmDistribuidores extends javax.swing.JFrame {
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
 
         if(this.ValidacoesCampos()) {
-           Clientes cli = new Clientes();
-           ClientesDAO cliDAO = new ClientesDAO();
+           Distribuidores dist = new Distribuidores();
+           DistribuidoresDAO distDAO = new DistribuidoresDAO();
            
-           cli.setCodigo(Integer.parseInt(txtCodigo.getText()));
-           cli.setNome(txtNome.getText());
-           cli.setNascimento(Conversor.StringParaData(txtNascimento.getText()));
-           cli.setEndereco(txtEndereco.getText());
-           cli.setTelefone(txtTelefone.getText());
-           cli.setEmail(txtEmail.getText());
+           dist.setCodigo(Integer.parseInt(txtCodigo.getText()));
+           dist.setNomeFantasia(txtNomeFant.getText());
+           dist.setRazaoSocial(txtRazaoSoc.getText());
+           dist.setTelefone(txtTelefone.getText());
+           dist.setEmail(txtEmail.getText());
 
-           cliDAO.create(cli);
+           distDAO.create(dist);
            
            this.carregarGrade();
            this.limparCampos();
@@ -247,7 +233,7 @@ public class frmDistribuidores extends javax.swing.JFrame {
 
     private boolean ValidacoesCodigo() {
         if(txtCodigo.getText().trim().isEmpty()) {
-            Mensagem.ExibirMensagemErro("Preencha o código.");
+            Mensagem.ExibirMensagemErro("Preencha o Código.");
             return false;
         } 
       
@@ -260,26 +246,16 @@ public class frmDistribuidores extends javax.swing.JFrame {
     }
         
     private boolean ValidacoesCampos() {
-        if(txtNome.getText().trim().isEmpty()) {
-          Mensagem.ExibirMensagemErro("Preencha o nome.");
+        if(txtNomeFant.getText().trim().isEmpty()) {
+          Mensagem.ExibirMensagemErro("Preencha o Nome Fantasia.");
           return false;
         }
 
         if(!ValidacoesCodigo())
           return false;      
 
-        if(txtNascimento.getText().trim().isEmpty()) {
-            Mensagem.ExibirMensagemErro("Preencha a data de nascimento.");
-            return false;
-        }
-      
-        if(!Validador.ValorEDataValida(txtNascimento.getText())) {
-            Mensagem.ExibirMensagemErro("Preencha uma data válida.");
-            return false;
-        }
-       
-        if(txtEndereco.getText().trim().isEmpty()) {
-            Mensagem.ExibirMensagemErro("Preencha o Endereço.");
+        if(txtRazaoSoc.getText().trim().isEmpty()) {
+            Mensagem.ExibirMensagemErro("Preencha a Razão Social.");
             return false;
         }
         
@@ -297,9 +273,8 @@ public class frmDistribuidores extends javax.swing.JFrame {
     
     private void limparCampos() {
         txtCodigo.setText("");
-        txtNome.setText("");
-        txtNascimento.setText("");
-        txtEndereco.setText("");
+        txtNomeFant.setText("");
+        txtRazaoSoc.setText("");
         txtTelefone.setText("");
         txtEmail.setText("");
     }
@@ -307,28 +282,26 @@ public class frmDistribuidores extends javax.swing.JFrame {
     private void AtribuirValoresGradeParaEdits() {
         int row = grdClientes.getSelectedRow();
         txtCodigo.setText(grdClientes.getModel().getValueAt(row, 1).toString());
-        txtNome.setText(grdClientes.getModel().getValueAt(row, 2).toString());
-        txtNascimento.setText(grdClientes.getModel().getValueAt(row, 3).toString());
-        txtEndereco.setText(grdClientes.getModel().getValueAt(row, 4).toString()); 
-        txtTelefone.setText(grdClientes.getModel().getValueAt(row, 5).toString());
-        txtEmail.setText(grdClientes.getModel().getValueAt(row, 6).toString());
+        txtNomeFant.setText(grdClientes.getModel().getValueAt(row, 2).toString());
+        txtRazaoSoc.setText(grdClientes.getModel().getValueAt(row, 3).toString()); 
+        txtTelefone.setText(grdClientes.getModel().getValueAt(row, 4).toString());
+        txtEmail.setText(grdClientes.getModel().getValueAt(row, 5).toString());
     }
     
     
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
        
         if (this.ValidacoesCampos()) {
-           Clientes cli = new Clientes();
-           ClientesDAO cliDAO = new ClientesDAO();
+           Distribuidores dist = new Distribuidores();
+           DistribuidoresDAO distDAO = new DistribuidoresDAO();
            
-           cli.setCodigo(Integer.parseInt(txtCodigo.getText()));
-           cli.setNome(txtNome.getText());
-           cli.setNascimento(Conversor.StringParaData(txtNascimento.getText()));
-           cli.setEndereco(txtEndereco.getText());
-           cli.setTelefone(txtTelefone.getText());
-           cli.setEmail(txtEmail.getText());
+           dist.setCodigo(Integer.parseInt(txtCodigo.getText()));
+           dist.setNomeFantasia(txtNomeFant.getText());
+           dist.setRazaoSocial(txtRazaoSoc.getText());
+           dist.setTelefone(txtTelefone.getText());
+           dist.setEmail(txtEmail.getText());
 
-           cliDAO.update(cli);
+           distDAO.update(dist);
 
            this.carregarGrade();
            this.limparCampos();
@@ -343,12 +316,12 @@ public class frmDistribuidores extends javax.swing.JFrame {
     
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
 
-        Clientes cli = new Clientes();
-        ClientesDAO cliDAO = new ClientesDAO();
+        Distribuidores dist = new Distribuidores();
+        DistribuidoresDAO distDAO = new DistribuidoresDAO();
 
-        cli.setCodigo(Integer.parseInt(txtCodigo.getText()));
+        dist.setCodigo(Integer.parseInt(txtCodigo.getText()));
             
-        cliDAO.delete(cli);            
+        distDAO.delete(dist);            
         
         this.carregarGrade();
         this.limparCampos();  
@@ -356,24 +329,23 @@ public class frmDistribuidores extends javax.swing.JFrame {
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         // TODO add your handling code here:
-        ClientesDAO cliDAO = new ClientesDAO();
+        DistribuidoresDAO distDAO = new DistribuidoresDAO();
         
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM Cliente WHERE COD_Cliente = '"+txtCodigo.getText()+"'");
+            stmt = con.prepareStatement("SELECT * FROM Distribuidores WHERE COD_Dist = '"+txtCodigo.getText()+"'");
             rs = stmt.executeQuery();
             
             while (rs.next()) {
                 
-                Clientes cli = new Clientes();
+                Distribuidores dist = new Distribuidores();
                 
-                txtCodigo.setText(rs.getString("COD_Cli"));
-                txtNome.setText(rs.getString("Nome"));                
-                txtNascimento.setText(rs.getString("Data_Nasc"));
-                txtEndereco.setText(rs.getString("Endereco"));
+                txtCodigo.setText(rs.getString("COD_Dist"));
+                txtNomeFant.setText(rs.getString("Nome_Fantasia"));                
+                txtRazaoSoc.setText(rs.getString("Razao_Social"));
                 txtTelefone.setText(rs.getString("Telefone"));
                 txtEmail.setText(rs.getString("Email"));                
                 
@@ -407,15 +379,13 @@ public class frmDistribuidores extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblEmail;
-    private javax.swing.JLabel lblEndereco;
-    private javax.swing.JLabel lblNascimento;
-    private javax.swing.JLabel lblNome;
+    private javax.swing.JLabel lblNomeFant;
+    private javax.swing.JLabel lblRazaoSoc;
     private javax.swing.JLabel lblTelefone;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtEndereco;
-    private javax.swing.JTextField txtNascimento;
-    private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtNomeFant;
+    private javax.swing.JTextField txtRazaoSoc;
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
 }

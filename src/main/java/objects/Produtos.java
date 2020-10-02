@@ -24,7 +24,7 @@ public class Produtos {
         this.descricao = Descricao;
     }
     
-    public void setValidade(Date Validade){
+    public void setDataValidade(Date Validade){
         this.validade = Validade;
     }
     

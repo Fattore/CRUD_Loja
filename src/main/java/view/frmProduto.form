@@ -43,19 +43,20 @@
                               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="lblNome" min="-2" pref="110" max="-2" attributes="0"/>
+                              <Component id="lblPrecoV" min="-2" pref="110" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="txtNome" max="32767" attributes="0"/>
+                              <Component id="txtPrecoV" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="lblTelefone" min="-2" pref="110" max="-2" attributes="0"/>
+                              <Component id="lblPrecoC" min="-2" pref="110" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                              <Component id="txtTelefone" max="32767" attributes="0"/>
+                              <Component id="txtPrecoC" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="lblEmail" min="-2" pref="110" max="-2" attributes="0"/>
+                              <Component id="lblEstoque" min="-2" pref="110" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="txtEmail" max="32767" attributes="0"/>
+                              <Component id="txtEstoque" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="lblCodigo" min="-2" pref="110" max="-2" attributes="0"/>
@@ -63,14 +64,19 @@
                               <Component id="txtCodigo" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="lblNascimento" min="-2" pref="110" max="-2" attributes="0"/>
+                              <Component id="lblDescricao" min="-2" pref="110" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="txtNascimento" max="32767" attributes="0"/>
+                              <Component id="txtDescricao" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="lblEndereco" min="-2" pref="110" max="-2" attributes="0"/>
+                              <Component id="lblDataV" min="-2" pref="110" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="txtEndereco" max="32767" attributes="0"/>
+                              <Component id="txtDataV" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="lblCodigoDist" min="-2" pref="110" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="txtCodigoDist" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -82,7 +88,7 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnNovo" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                   <Component id="btnSalvar" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
@@ -96,30 +102,35 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblNome" alignment="3" max="32767" attributes="0"/>
-                  <Component id="txtNome" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblPrecoV" alignment="3" max="32767" attributes="0"/>
+                  <Component id="txtPrecoV" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblNascimento" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtNascimento" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblDescricao" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtDescricao" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblEndereco" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtEndereco" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblDataV" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtDataV" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txtTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtPrecoC" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblPrecoC" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txtEmail" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblEmail" alignment="3" pref="23" max="32767" attributes="0"/>
+                  <Component id="txtEstoque" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblEstoque" alignment="3" pref="23" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="txtCodigoDist" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblCodigoDist" alignment="3" pref="23" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="376" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -159,9 +170,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExcluirActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtNome">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtEmail">
+    <Component class="javax.swing.JTextField" name="txtEstoque">
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
@@ -173,17 +182,23 @@
         <Component class="javax.swing.JTable" name="grdClientes">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="6" rowCount="4">
+              <Table columnCount="7" rowCount="4">
                 <Column editable="false" title="C&#xf3;digo" type="java.lang.Object"/>
-                <Column editable="false" title="Nome" type="java.lang.Object"/>
-                <Column editable="false" title="Nascimento" type="java.lang.Object"/>
-                <Column editable="false" title="Endere&#xe7;o" type="java.lang.Object"/>
-                <Column editable="true" title="Telefone" type="java.lang.Object"/>
-                <Column editable="true" title="Email" type="java.lang.Object"/>
+                <Column editable="false" title="Pre&#xe7;o Venda" type="java.lang.Object"/>
+                <Column editable="false" title="Descri&#xe7;&#xe3;o" type="java.lang.Object"/>
+                <Column editable="false" title="Data V&#xe1;lidade" type="java.lang.Object"/>
+                <Column editable="false" title="Pre&#xe7;o Custo" type="java.lang.Object"/>
+                <Column editable="false" title="Estoque" type="java.lang.Object"/>
+                <Column editable="false" title="C&#xf3;digo Dist..." type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
@@ -226,32 +241,29 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="lblNome">
+    <Component class="javax.swing.JLabel" name="lblPrecoV">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nome:"/>
+        <Property name="text" type="java.lang.String" value="Pre&#xe7;o Venda:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblNascimento">
+    <Component class="javax.swing.JLabel" name="lblDescricao">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nascimento:"/>
+        <Property name="text" type="java.lang.String" value="Descri&#xe7;&#xe3;o:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblEmail">
+    <Component class="javax.swing.JLabel" name="lblEstoque">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Email:"/>
+        <Property name="text" type="java.lang.String" value="Estoque:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblTelefone">
+    <Component class="javax.swing.JLabel" name="lblPrecoC">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Telefone:"/>
+        <Property name="text" type="java.lang.String" value="Pre&#xe7;o Custo:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtTelefone">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTelefoneActionPerformed"/>
-      </Events>
+    <Component class="javax.swing.JTextField" name="txtPrecoC">
     </Component>
-    <Component class="javax.swing.JTextField" name="txtNascimento">
+    <Component class="javax.swing.JTextField" name="txtDescricao">
     </Component>
     <Component class="javax.swing.JLabel" name="lblCodigo">
       <Properties>
@@ -260,12 +272,21 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtCodigo">
     </Component>
-    <Component class="javax.swing.JLabel" name="lblEndereco">
+    <Component class="javax.swing.JLabel" name="lblDataV">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Endere&#xe7;o:"/>
+        <Property name="text" type="java.lang.String" value="Data Validade:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtEndereco">
+    <Component class="javax.swing.JTextField" name="txtDataV">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblCodigoDist">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="C&#xf3;digo Distribuidor:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtCodigoDist">
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtPrecoV">
     </Component>
   </SubComponents>
 </Form>
