@@ -68,8 +68,4 @@ public class Produtos {
     public int getCodigoDist(){
         return codigoDist;
     }
-
-    public java.sql.Date getDataValidade() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

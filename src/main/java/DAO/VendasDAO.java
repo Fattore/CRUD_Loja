@@ -75,7 +75,7 @@ public class VendasDAO {
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("UPDATE Cliente SET Data_Venda = ?,Hora_Venda = ?,Total_Venda = ?,COD_Cli = ? WHERE COD_Venda = ?");
+            stmt = con.prepareStatement("UPDATE Vendas SET Data_Venda = ?,Hora_Venda = ?,Total_Venda = ?,COD_Cli = ? WHERE COD_Venda = ?");
             stmt.setString(1,venda.getDataVenda());
             stmt.setString(2,venda.getHoraVenda());
             stmt.setFloat(3,venda.getTotal());

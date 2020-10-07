@@ -43,7 +43,7 @@ public class ItemVendaDAO {
         List<ItemVenda> itemVendaList = new ArrayList<>();
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM ItemVenda");
+            stmt = con.prepareStatement("SELECT * FROM Itens_Venda");
             rs = stmt.executeQuery();
             
             while (rs.next()) {
@@ -75,7 +75,7 @@ public class ItemVendaDAO {
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("UPDATE ItemVenda SET Quantidade = ?,Sub_Total = ?,COD_Venda = ?,COD_Produto = ? WHERE COD_Itens_Venda = ?");
+            stmt = con.prepareStatement("UPDATE Itens_Venda SET Quantidade = ?,Sub_Total = ?,COD_Venda = ?,COD_Produto = ? WHERE COD_Itens_Venda = ?");
             stmt.setInt(1,itemV.getQuantidade());
             stmt.setFloat(2,itemV.getSubTotal());
             stmt.setInt(3,itemV.getCodigoVenda());
@@ -97,7 +97,7 @@ public class ItemVendaDAO {
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("DELETE FROM ItemVenda WHERE COD_Itens_Venda = ?");
+            stmt = con.prepareStatement("DELETE FROM Itens_Venda WHERE COD_Itens_Venda = ?");
             stmt.setInt(1,itemV.getCodigoItemVenda());
 
             stmt.executeUpdate();

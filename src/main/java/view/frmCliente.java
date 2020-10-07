@@ -11,6 +11,12 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import objects.Clientes;
+import javax.swing.JOptionPane;
+
+/*Listagem de clientes sem e-mail
+ Listagem de produtos que estão vencidos na data atual
+ Quantidade de vendas realizadas no ano de 2020 (agrupadas por cliente)
+ Listagem de vendas (contendo o valor total da mesma).*/
 
 public class frmCliente extends javax.swing.JFrame {
 
@@ -62,8 +68,19 @@ public class frmCliente extends javax.swing.JFrame {
         txtCodigo = new javax.swing.JTextField();
         lblEndereco = new javax.swing.JLabel();
         txtEndereco = new javax.swing.JTextField();
+        jmbCliente = new javax.swing.JMenuBar();
+        jmnOpcoes = new javax.swing.JMenu();
+        jmiNoEmail = new javax.swing.JMenuItem();
+        jmiSair = new javax.swing.JMenuItem();
+        jmnNavegacao = new javax.swing.JMenu();
+        jmiClientes = new javax.swing.JMenuItem();
+        jmiDistribuidores = new javax.swing.JMenuItem();
+        jmiItemVenda = new javax.swing.JMenuItem();
+        jmiProduto = new javax.swing.JMenuItem();
+        jmiVenda = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Cliente");
 
         btnConsultar.setText("Consultar");
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
@@ -105,7 +122,7 @@ public class frmCliente extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, true
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -136,6 +153,77 @@ public class frmCliente extends javax.swing.JFrame {
         lblCodigo.setText("Código:");
 
         lblEndereco.setText("Endereço:");
+
+        jmnOpcoes.setText("Opções");
+        jmnOpcoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmnOpcoesActionPerformed(evt);
+            }
+        });
+
+        jmiNoEmail.setText("Cliente sem Email");
+        jmiNoEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiNoEmailActionPerformed(evt);
+            }
+        });
+        jmnOpcoes.add(jmiNoEmail);
+
+        jmiSair.setText("Sair");
+        jmiSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiSairActionPerformed(evt);
+            }
+        });
+        jmnOpcoes.add(jmiSair);
+
+        jmbCliente.add(jmnOpcoes);
+
+        jmnNavegacao.setText("Navegação");
+
+        jmiClientes.setText("Clientes");
+        jmiClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiClientesActionPerformed(evt);
+            }
+        });
+        jmnNavegacao.add(jmiClientes);
+
+        jmiDistribuidores.setText("Distribuidores");
+        jmiDistribuidores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiDistribuidoresActionPerformed(evt);
+            }
+        });
+        jmnNavegacao.add(jmiDistribuidores);
+
+        jmiItemVenda.setText("ItemXVenda");
+        jmiItemVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiItemVendaActionPerformed(evt);
+            }
+        });
+        jmnNavegacao.add(jmiItemVenda);
+
+        jmiProduto.setText("Produto");
+        jmiProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiProdutoActionPerformed(evt);
+            }
+        });
+        jmnNavegacao.add(jmiProduto);
+
+        jmiVenda.setText("Venda");
+        jmiVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiVendaActionPerformed(evt);
+            }
+        });
+        jmnNavegacao.add(jmiVenda);
+
+        jmbCliente.add(jmnNavegacao);
+
+        setJMenuBar(jmbCliente);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -244,7 +332,7 @@ public class frmCliente extends javax.swing.JFrame {
            this.limparCampos();
         } 
     }//GEN-LAST:event_btnNovoActionPerformed
-
+      
     private boolean ValidacoesCodigo() {
         if(txtCodigo.getText().trim().isEmpty()) {
             Mensagem.ExibirMensagemErro("Preencha o código.");
@@ -288,10 +376,10 @@ public class frmCliente extends javax.swing.JFrame {
             return false;
         }
         
-        if(txtEmail.getText().trim().isEmpty()) {
+        /*if(txtEmail.getText().trim().isEmpty()) {
             Mensagem.ExibirMensagemErro("Preencha o Email.");
             return false;
-        } 
+        }*/ 
         return true;
     }
     
@@ -363,7 +451,7 @@ public class frmCliente extends javax.swing.JFrame {
         ResultSet rs = null;
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM Cliente WHERE COD_Cliente = '"+txtCodigo.getText()+"'");
+            stmt = con.prepareStatement("SELECT * FROM Clientes WHERE COD_Cli = '"+txtCodigo.getText()+"'");
             rs = stmt.executeQuery();
             
             while (rs.next()) {
@@ -390,6 +478,73 @@ public class frmCliente extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtTelefoneActionPerformed
 
+    private void jmnOpcoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnOpcoesActionPerformed
+        
+    }//GEN-LAST:event_jmnOpcoesActionPerformed
+
+    private void jmiSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSairActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jmiSairActionPerformed
+
+    private void jmiClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiClientesActionPerformed
+        frmCliente form = new frmCliente();
+        form.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jmiClientesActionPerformed
+
+    private void jmiVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiVendaActionPerformed
+        frmVenda form = new frmVenda();
+        form.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jmiVendaActionPerformed
+
+    private void jmiDistribuidoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDistribuidoresActionPerformed
+        frmDistribuidores form = new frmDistribuidores();
+        form.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jmiDistribuidoresActionPerformed
+
+    private void jmiItemVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiItemVendaActionPerformed
+        frmItemVenda form = new frmItemVenda();
+        form.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jmiItemVendaActionPerformed
+
+    private void jmiProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProdutoActionPerformed
+        frmProduto form = new frmProduto();
+        form.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jmiProdutoActionPerformed
+
+    private void jmiNoEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNoEmailActionPerformed
+        ClientesDAO cliDAO = new ClientesDAO();
+        
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        try {
+            stmt = con.prepareStatement("SELECT COD_Cli,Nome FROM Clientes WHERE Email = NULL OR Email = ''");
+            rs = stmt.executeQuery();
+            
+            StringBuilder sb = new StringBuilder();
+            
+            while (rs.next()) {
+		sb.append(rs.getString("COD_Cli")+" - ");
+                sb.append(rs.getString("Nome")+"\n");
+				
+            }
+
+            System.out.println(sb);
+            JOptionPane.showMessageDialog(null, sb);
+          
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro na Consulta: "+ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+    }//GEN-LAST:event_jmiNoEmailActionPerformed
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -405,6 +560,16 @@ public class frmCliente extends javax.swing.JFrame {
     private javax.swing.JButton btnSalvar;
     private javax.swing.JTable grdClientes;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenuBar jmbCliente;
+    private javax.swing.JMenuItem jmiClientes;
+    private javax.swing.JMenuItem jmiDistribuidores;
+    private javax.swing.JMenuItem jmiItemVenda;
+    private javax.swing.JMenuItem jmiNoEmail;
+    private javax.swing.JMenuItem jmiProduto;
+    private javax.swing.JMenuItem jmiSair;
+    private javax.swing.JMenuItem jmiVenda;
+    private javax.swing.JMenu jmnNavegacao;
+    private javax.swing.JMenu jmnOpcoes;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblEndereco;

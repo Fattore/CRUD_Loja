@@ -19,7 +19,7 @@ public class ClientesDAO {
         PreparedStatement stmt = null;
                 
         try {
-            stmt = con.prepareStatement("INSERT INTO Cliente (COD_Cli,Nome,Data_Nasc,Endereco,Telefone,Email) VALUES (?,?,?,?,?,?)");
+            stmt = con.prepareStatement("INSERT INTO Clientes (COD_Cli,Nome,Data_Nasc,Endereco,Telefone,Email) VALUES (?,?,?,?,?,?)");
             stmt.setInt(1,cli.getCodigo());
             stmt.setString(2,cli.getNome());
             stmt.setDate(3, (Date) cli.getNascimento());
@@ -46,7 +46,7 @@ public class ClientesDAO {
         List<Clientes> cliList = new ArrayList<>();
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM Cliente");
+            stmt = con.prepareStatement("SELECT * FROM Clientes");
             rs = stmt.executeQuery();
             
             while (rs.next()) {
@@ -79,7 +79,7 @@ public class ClientesDAO {
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("UPDATE Cliente SET Nome = ?,Data_Nasc = ?,Endereco = ?,Telefone = ?,Email = ? WHERE COD_Cli = ?");
+            stmt = con.prepareStatement("UPDATE Clientes SET Nome = ?,Data_Nasc = ?,Endereco = ?,Telefone = ?,Email = ? WHERE COD_Cli = ?");
             stmt.setString(1,cli.getNome());
             stmt.setDate(2, (Date) cli.getNascimento());
             stmt.setString(3,cli.getEndereco());
@@ -102,7 +102,7 @@ public class ClientesDAO {
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("DELETE FROM Cliente WHERE COD_Cli = ?");
+            stmt = con.prepareStatement("DELETE FROM Clientes WHERE COD_Cli = ?");
             stmt.setInt(1,cli.getCodigo());
 
             stmt.executeUpdate();

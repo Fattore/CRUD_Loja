@@ -12,6 +12,11 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import objects.Produtos;
 
+/*Listagem de clientes sem e-mail
+ Listagem de produtos que estão vencidos na data atual
+ Quantidade de vendas realizadas no ano de 2020 (agrupadas por cliente)
+ Listagem de vendas (contendo o valor total da mesma).*/
+
 public class frmProduto extends javax.swing.JFrame {
 
     public frmProduto() {
@@ -34,7 +39,7 @@ public class frmProduto extends javax.swing.JFrame {
                 prod.getCodigoProd(),
                 prod.getPrecoVenda(),
                 prod.getDescricao(),
-                prod.getDataValidade(),
+                prod.getValidade(),
                 prod.getPrecoCusto(),
                 prod.getEstoque(),
                 prod.getCodigoDist()});
@@ -42,7 +47,7 @@ public class frmProduto extends javax.swing.JFrame {
     }
  
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
         btnConsultar = new javax.swing.JButton();
@@ -65,8 +70,18 @@ public class frmProduto extends javax.swing.JFrame {
         lblCodigoDist = new javax.swing.JLabel();
         txtCodigoDist = new javax.swing.JTextField();
         txtPrecoV = new javax.swing.JTextField();
+        jmbCliente = new javax.swing.JMenuBar();
+        jmnOpcoes = new javax.swing.JMenu();
+        jmiSair = new javax.swing.JMenuItem();
+        jmnNavegacao = new javax.swing.JMenu();
+        jmiClientes = new javax.swing.JMenuItem();
+        jmiDistribuidores = new javax.swing.JMenuItem();
+        jmiItemVenda = new javax.swing.JMenuItem();
+        jmiProduto = new javax.swing.JMenuItem();
+        jmiVenda = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Produto");
 
         btnConsultar.setText("Consultar");
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
@@ -135,6 +150,69 @@ public class frmProduto extends javax.swing.JFrame {
         lblDataV.setText("Data Validade:");
 
         lblCodigoDist.setText("Código Distribuidor:");
+
+        jmnOpcoes.setText("Opções");
+        jmnOpcoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmnOpcoesActionPerformed(evt);
+            }
+        });
+
+        jmiSair.setText("Sair");
+        jmiSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiSairActionPerformed(evt);
+            }
+        });
+        jmnOpcoes.add(jmiSair);
+
+        jmbCliente.add(jmnOpcoes);
+
+        jmnNavegacao.setText("Navegação");
+
+        jmiClientes.setText("Clientes");
+        jmiClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiClientesActionPerformed(evt);
+            }
+        });
+        jmnNavegacao.add(jmiClientes);
+
+        jmiDistribuidores.setText("Distribuidores");
+        jmiDistribuidores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiDistribuidoresActionPerformed(evt);
+            }
+        });
+        jmnNavegacao.add(jmiDistribuidores);
+
+        jmiItemVenda.setText("ItemXVenda");
+        jmiItemVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiItemVendaActionPerformed(evt);
+            }
+        });
+        jmnNavegacao.add(jmiItemVenda);
+
+        jmiProduto.setText("Produto");
+        jmiProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiProdutoActionPerformed(evt);
+            }
+        });
+        jmnNavegacao.add(jmiProduto);
+
+        jmiVenda.setText("Venda");
+        jmiVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiVendaActionPerformed(evt);
+            }
+        });
+        jmnNavegacao.add(jmiVenda);
+
+        jmbCliente.add(jmnNavegacao);
+
+        setJMenuBar(jmbCliente);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -231,9 +309,9 @@ public class frmProduto extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>                        
 
-    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {                                        
 
         if(this.ValidacoesCampos()) {
            Produtos prod = new Produtos();
@@ -252,7 +330,7 @@ public class frmProduto extends javax.swing.JFrame {
            this.carregarGrade();
            this.limparCampos();
         } 
-    }//GEN-LAST:event_btnNovoActionPerformed
+    }                                       
 
     private boolean ValidacoesCodigo() {
         if(txtCodigo.getText().trim().isEmpty()) {
@@ -282,8 +360,8 @@ public class frmProduto extends javax.swing.JFrame {
             return false;
         }
        
-        if(txtDataV.getText().trim().isEmpty()) {
-            Mensagem.ExibirMensagemErro("Preencha o Data da Venda.");
+        if(!Validador.ValorEDataValida(txtDataV.getText())) {
+            Mensagem.ExibirMensagemErro("Preencha o Data da Válidade.");
             return false;
         }
         
@@ -292,10 +370,10 @@ public class frmProduto extends javax.swing.JFrame {
             return false;
         }
         
-        if(txtEstoque.getText().trim().isEmpty()) {
+        /*if(txtEstoque.getText().trim().isEmpty()) {
             Mensagem.ExibirMensagemErro("Preencha o Estoque.");
             return false;
-        }
+        }*/
         
         if(txtCodigoDist.getText().trim().isEmpty()) {
             Mensagem.ExibirMensagemErro("Preencha o Código do Distribuidor.");
@@ -326,7 +404,7 @@ public class frmProduto extends javax.swing.JFrame {
     }
     
     
-    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {                                          
        
         if (this.ValidacoesCampos()) {
            Produtos prod = new Produtos();
@@ -345,15 +423,15 @@ public class frmProduto extends javax.swing.JFrame {
            this.carregarGrade();
            this.limparCampos();
         }   
-    }//GEN-LAST:event_btnSalvarActionPerformed
+    }                                         
 
-    private void grdClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grdClientesMouseClicked
+    private void grdClientesMouseClicked(java.awt.event.MouseEvent evt) {                                         
 
         this.AtribuirValoresGradeParaEdits();
-    }//GEN-LAST:event_grdClientesMouseClicked
+    }                                        
 
     
-    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {                                           
 
         Produtos prod = new Produtos();
         ProdutosDAO prodDAO = new ProdutosDAO();
@@ -364,9 +442,9 @@ public class frmProduto extends javax.swing.JFrame {
         
         this.carregarGrade();
         this.limparCampos();  
-    }//GEN-LAST:event_btnExcluirActionPerformed
+    }                                          
 
-    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {                                             
         // TODO add your handling code here:
         ProdutosDAO prodDAO = new ProdutosDAO();
         
@@ -388,8 +466,9 @@ public class frmProduto extends javax.swing.JFrame {
                 txtDataV.setText(rs.getString("Data_Validade"));
                 txtPrecoC.setText(rs.getString("Preco_Custo"));
                 txtEstoque.setText(rs.getString("Estoque"));
-                txtCodigoDist.setText(rs.getString("COD_Dist"));                  
+                txtCodigoDist.setText(rs.getString("COD_Dist"));
                 
+                Validador.DataValidade(rs.getString("Data_Validade"));
             }
           
         } catch (SQLException ex) {
@@ -397,9 +476,49 @@ public class frmProduto extends javax.swing.JFrame {
         } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
-    }                                        lblPrecoV   private void txtPrecoCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-LAST:event_btnConsultarActionPerformed
+    }
+    
+    private void txtPrecoCActionPerformed(java.awt.event.ActionEvent evt) {                                            
     
     }
+
+    private void jmiSairActionPerformed(java.awt.event.ActionEvent evt) {                                        
+        System.exit(0);
+    }                                       
+
+    private void jmnOpcoesActionPerformed(java.awt.event.ActionEvent evt) {                                          
+
+    }                                         
+
+    private void jmiClientesActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        frmCliente form = new frmCliente();
+        form.setVisible(true);
+        this.setVisible(false);
+    }                                           
+
+    private void jmiDistribuidoresActionPerformed(java.awt.event.ActionEvent evt) {                                                  
+        frmDistribuidores form = new frmDistribuidores();
+        form.setVisible(true);
+        this.setVisible(false);
+    }                                                 
+
+    private void jmiItemVendaActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        frmItemVenda form = new frmItemVenda();
+        form.setVisible(true);
+        this.setVisible(false);
+    }                                            
+
+    private void jmiProdutoActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        frmProduto form = new frmProduto();
+        form.setVisible(true);
+        this.setVisible(false);
+    }                                          
+
+    private void jmiVendaActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        frmVenda form = new frmVenda();
+        form.setVisible(true);
+        this.setVisible(false);
+    }                                        
     
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -409,13 +528,22 @@ public class frmProduto extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
     private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JTable grdClientes;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenuBar jmbCliente;
+    private javax.swing.JMenuItem jmiClientes;
+    private javax.swing.JMenuItem jmiDistribuidores;
+    private javax.swing.JMenuItem jmiItemVenda;
+    private javax.swing.JMenuItem jmiProduto;
+    private javax.swing.JMenuItem jmiSair;
+    private javax.swing.JMenuItem jmiVenda;
+    private javax.swing.JMenu jmnNavegacao;
+    private javax.swing.JMenu jmnOpcoes;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblCodigoDist;
     private javax.swing.JLabel lblDataV;
@@ -430,5 +558,6 @@ public class frmProduto extends javax.swing.JFrame {
     private javax.swing.JTextField txtEstoque;
     private javax.swing.JTextField txtPrecoC;
     private javax.swing.JTextField txtPrecoV;
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 }
+

@@ -12,6 +12,11 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import objects.ItemVenda;
 
+/*Listagem de clientes sem e-mail
+ Listagem de produtos que estão vencidos na data atual
+ Quantidade de vendas realizadas no ano de 2020 (agrupadas por cliente)
+ Listagem de vendas (contendo o valor total da mesma).*/
+
 public class frmItemVenda extends javax.swing.JFrame {
 
     public frmItemVenda() {
@@ -59,8 +64,18 @@ public class frmItemVenda extends javax.swing.JFrame {
         txtCodigo = new javax.swing.JTextField();
         lblCodigoV = new javax.swing.JLabel();
         txtCodigoV = new javax.swing.JTextField();
+        jmbCliente = new javax.swing.JMenuBar();
+        jmnOpcoes = new javax.swing.JMenu();
+        jmiSair = new javax.swing.JMenuItem();
+        jmnNavegacao = new javax.swing.JMenu();
+        jmiClientes = new javax.swing.JMenuItem();
+        jmiDistribuidores = new javax.swing.JMenuItem();
+        jmiItemVenda = new javax.swing.JMenuItem();
+        jmiProduto = new javax.swing.JMenuItem();
+        jmiVenda = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("ItemXVenda");
 
         btnConsultar.setText("Consultar");
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
@@ -131,6 +146,69 @@ public class frmItemVenda extends javax.swing.JFrame {
         lblCodigo.setText("Código:");
 
         lblCodigoV.setText("Código Venda:");
+
+        jmnOpcoes.setText("Opções");
+        jmnOpcoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmnOpcoesActionPerformed(evt);
+            }
+        });
+
+        jmiSair.setText("Sair");
+        jmiSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiSairActionPerformed(evt);
+            }
+        });
+        jmnOpcoes.add(jmiSair);
+
+        jmbCliente.add(jmnOpcoes);
+
+        jmnNavegacao.setText("Navegação");
+
+        jmiClientes.setText("Clientes");
+        jmiClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiClientesActionPerformed(evt);
+            }
+        });
+        jmnNavegacao.add(jmiClientes);
+
+        jmiDistribuidores.setText("Distribuidores");
+        jmiDistribuidores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiDistribuidoresActionPerformed(evt);
+            }
+        });
+        jmnNavegacao.add(jmiDistribuidores);
+
+        jmiItemVenda.setText("ItemXVenda");
+        jmiItemVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiItemVendaActionPerformed(evt);
+            }
+        });
+        jmnNavegacao.add(jmiItemVenda);
+
+        jmiProduto.setText("Produto");
+        jmiProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiProdutoActionPerformed(evt);
+            }
+        });
+        jmnNavegacao.add(jmiProduto);
+
+        jmiVenda.setText("Venda");
+        jmiVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiVendaActionPerformed(evt);
+            }
+        });
+        jmnNavegacao.add(jmiVenda);
+
+        jmbCliente.add(jmnNavegacao);
+
+        setJMenuBar(jmbCliente);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -336,7 +414,7 @@ public class frmItemVenda extends javax.swing.JFrame {
         ResultSet rs = null;
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM Cliente WHERE COD_Itens_Venda = '"+txtCodigo.getText()+"'");
+            stmt = con.prepareStatement("SELECT * FROM Itens_Venda WHERE COD_Itens_Venda = '"+txtCodigo.getText()+"'");
             rs = stmt.executeQuery();
             
             while (rs.next()) {
@@ -361,6 +439,44 @@ public class frmItemVenda extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtCodigoPActionPerformed
 
+    private void jmiSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSairActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jmiSairActionPerformed
+
+    private void jmnOpcoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnOpcoesActionPerformed
+
+    }//GEN-LAST:event_jmnOpcoesActionPerformed
+
+    private void jmiClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiClientesActionPerformed
+        frmCliente form = new frmCliente();
+        form.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jmiClientesActionPerformed
+
+    private void jmiDistribuidoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDistribuidoresActionPerformed
+        frmDistribuidores form = new frmDistribuidores();
+        form.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jmiDistribuidoresActionPerformed
+
+    private void jmiItemVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiItemVendaActionPerformed
+        frmItemVenda form = new frmItemVenda();
+        form.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jmiItemVendaActionPerformed
+
+    private void jmiProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProdutoActionPerformed
+        frmProduto form = new frmProduto();
+        form.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jmiProdutoActionPerformed
+
+    private void jmiVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiVendaActionPerformed
+        frmVenda form = new frmVenda();
+        form.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jmiVendaActionPerformed
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -376,6 +492,15 @@ public class frmItemVenda extends javax.swing.JFrame {
     private javax.swing.JButton btnSalvar;
     private javax.swing.JTable grdClientes;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenuBar jmbCliente;
+    private javax.swing.JMenuItem jmiClientes;
+    private javax.swing.JMenuItem jmiDistribuidores;
+    private javax.swing.JMenuItem jmiItemVenda;
+    private javax.swing.JMenuItem jmiProduto;
+    private javax.swing.JMenuItem jmiSair;
+    private javax.swing.JMenuItem jmiVenda;
+    private javax.swing.JMenu jmnNavegacao;
+    private javax.swing.JMenu jmnOpcoes;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblCodigoP;
     private javax.swing.JLabel lblCodigoV;

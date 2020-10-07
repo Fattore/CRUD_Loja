@@ -18,11 +18,11 @@ public class ProdutosDAO {
         PreparedStatement stmt = null;
                 
         try {
-            stmt = con.prepareStatement("INSERT INTO Produto (COD_Prod,Preco_Venda,Descricao,Data_Validade,Preco_Custo,Estoque,COD_Dist) VALUES (?,?,?,?,?,?,?)");
+            stmt = con.prepareStatement("INSERT INTO Produtos (COD_Prod,Preco_Venda,Descricao,Data_Validade,Preco_Custo,Estoque,COD_Dist) VALUES (?,?,?,?,?,?,?)");
             stmt.setInt(1,prod.getCodigoProd());
             stmt.setFloat(2,prod.getPrecoVenda());
             stmt.setString(3,prod.getDescricao());
-            stmt.setDate(4, (Date) prod.getDataValidade());
+            stmt.setDate(4, (Date) prod.getValidade());
             stmt.setFloat(5,prod.getPrecoCusto());
             stmt.setInt(6,prod.getEstoque());
             stmt.setInt(7,prod.getCodigoDist());
@@ -83,7 +83,7 @@ public class ProdutosDAO {
             stmt = con.prepareStatement("UPDATE Produtos SET Preco_Venda = ?,Descricao = ?,Data_Validade = ?,Preco_Custo = ?,Estoque = ?,COD_Dist = ? WHERE COD_Prod = ?");
             stmt.setFloat(1,prod.getPrecoVenda());
             stmt.setString(2,prod.getDescricao());
-            stmt.setDate(3,prod.getDataValidade());
+            stmt.setDate(3, (Date) prod.getValidade());
             stmt.setFloat(4,prod.getPrecoCusto());
             stmt.setInt(5,prod.getEstoque());
             stmt.setInt(6,prod.getCodigoDist());
