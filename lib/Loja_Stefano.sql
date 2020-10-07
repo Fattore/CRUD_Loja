@@ -4,39 +4,39 @@ USE Loja;
 
 CREATE TABLE Produtos(
 	COD_Prod INT NOT NULL,
-	Preco_Venda DECIMAL(3,2) NOT NULL,
+	Preco_Venda FLOAT NOT NULL,
 	Descricao VARCHAR(255),
 	Data_Validade DATE NOT NULL,
-	Preco_Custo DECIMAL(3,2) NOT NULL,
-	Estoque INT NOT NULL,
+	Preco_Custo FLOAT NOT NULL,
+	Estoque INT,
 	COD_Dist INT NOT NULL);
 
 CREATE TABLE Distribuidores(
 	COD_Dist INT NOT NULL,
 	Nome_Fantasia VARCHAR(100) NOT NULL,
 	Razao_Social VARCHAR(100) NOT NULL,
-	Telefone VARCHAR(11) NOT NULL,
-	Email VARCHAR(100) NOT NULL);
+	Telefone VARCHAR(12) NOT NULL,
+	Email VARCHAR(100));
 
 CREATE TABLE Clientes(
 	COD_Cli INT NOT NULL,
 	Nome VARCHAR(100) NOT NULL,
 	Data_Nasc DATE NOT NULL,
 	Endereco VARCHAR(255) NOT NULL,
-	Telefone VARCHAR(11) NOT NULL,
-	Email VARCHAR(100) NOT NULL);
+	Telefone VARCHAR(12) NOT NULL,
+	Email VARCHAR(100));
 
 CREATE TABLE Vendas(
 	COD_Venda INT NOT NULL,
-	Data_Venda VARCHAR(10) NOT NULL,
-	Hora_Venda VARCHAR(5) NOT NULL,
-	Total_Venda DECIMAL(3,2) NOT NULL,
+	Data_Venda VARCHAR(11) NOT NULL,
+	Hora_Venda VARCHAR(6) NOT NULL,
+	Total_Venda FLOAT NOT NULL,
 	COD_Cli INT NOT NULL);
 
 CREATE TABLE Itens_Venda(
 	COD_Itens_Venda INT NOT NULL,
 	Quantidade INT NOT NULL,
-	Sub_Total DECIMAL(3,2) NOT NULL,
+	Sub_Total FLOAT NOT NULL,
 	COD_Venda INT NOT NULL,
 	COD_Produto INT NOT NULL);
 
@@ -59,5 +59,3 @@ ALTER TABLE Itens_Venda
 ADD CONSTRAINT PK_ITENS_VENDA PRIMARY KEY(COD_Itens_Venda),
 CONSTRAINT FK_VENDA FOREIGN KEY(COD_Venda) REFERENCES Vendas(COD_Venda),
 CONSTRAINT FK_PRODUTO FOREIGN KEY(COD_Produto) REFERENCES Produtos(COD_Prod);
-
-GRANT execute,select,insert,update,delete TO public;
