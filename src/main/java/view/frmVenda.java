@@ -147,6 +147,8 @@ public class frmVenda extends javax.swing.JFrame {
 
         lblTotalVenda.setText("Total Venda:");
 
+        txtTotalVenda.setEditable(false);
+
         jmnOpcoes.setText("Opções");
         jmnOpcoes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -293,14 +295,34 @@ public class frmVenda extends javax.swing.JFrame {
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
 
         if(this.ValidacoesCampos()) {
-           Vendas venda = new Vendas();
-           VendasDAO VDAO = new VendasDAO();
+            Vendas venda = new Vendas();
+            VendasDAO VDAO = new VendasDAO();
+        
+            Connection con = ConnectionFactory.getConnection();
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+        
+            try {
+                
+            stmt = con.prepareStatement("SELECT SUM(Quantidade * Sub_Total) FROM Itens_Venda AS (SELECT Total_Venda FROM Vendas.Total_Venda)");
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                
+                txtTotalVenda.setText(rs.getString("Total_Venda"));                
+                
+            }
+          
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro na Consulta: "+ex);
+            } finally {
+                ConnectionFactory.closeConnection(con, stmt, rs);
+            }
            
            venda.setCodigo(Integer.parseInt(txtCodigo.getText()));
            venda.setDataVenda(txtDataVenda.getText());
            venda.setHoraVenda(txtHoraVenda.getText());
            venda.setTotal(Float.parseFloat(txtTotalVenda.getText()));
-           /*INSERT INTO dbo.Vendas (Total_Venda) SELECT Quantidade * Sub_Total FROM Itens_Venda*/
            venda.setCodigoCli(Integer.parseInt(txtCodigoCli.getText()));
 
            VDAO.create(venda);
@@ -335,11 +357,6 @@ public class frmVenda extends javax.swing.JFrame {
 
         if(txtHoraVenda.getText().trim().isEmpty()) {
             Mensagem.ExibirMensagemErro("Preencha a Hora da Venda.");
-            return false;
-        }
-       
-        if(txtTotalVenda.getText().trim().isEmpty()) {
-            Mensagem.ExibirMensagemErro("Preencha o Total da Venda.");
             return false;
         }
         

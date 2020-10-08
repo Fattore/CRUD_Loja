@@ -137,11 +137,18 @@ public class frmItemVenda extends javax.swing.JFrame {
 
         lblCodigoP.setText("Código Produto:");
 
+        txtCodigoP.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCodigoPFocusLost(evt);
+            }
+        });
         txtCodigoP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCodigoPActionPerformed(evt);
             }
         });
+
+        txtSubTotal.setEditable(false);
 
         lblCodigo.setText("Código:");
 
@@ -331,11 +338,6 @@ public class frmItemVenda extends javax.swing.JFrame {
 
         if(!ValidacoesCodigo())
           return false;      
-
-        if(txtSubTotal.getText().trim().isEmpty()) {
-            Mensagem.ExibirMensagemErro("Preencha o Sub Total.");
-            return false;
-        }
        
         if(txtCodigoV.getText().trim().isEmpty()) {
             Mensagem.ExibirMensagemErro("Preencha o Código de Venda.");
@@ -476,6 +478,30 @@ public class frmItemVenda extends javax.swing.JFrame {
         form.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jmiVendaActionPerformed
+
+    private void txtCodigoPFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodigoPFocusLost
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        try {
+                
+            stmt = con.prepareStatement("SELECT Preco_Venda FROM Produtos WHERE COD_Prod='"+txtCodigoP.getText()+"'");
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                
+                String converte = rs.getString("Preco_Venda");
+                txtSubTotal.setText(Float.toString(Float.parseFloat(converte)*Float.parseFloat(txtQuantidade.getText())));
+            
+            }
+          
+        } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro na Consulta: "+ex);
+        } finally {
+                ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+    }//GEN-LAST:event_txtCodigoPFocusLost
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {

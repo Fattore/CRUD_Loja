@@ -31,14 +31,14 @@ CREATE TABLE Vendas(
 	Data_Venda VARCHAR(11) NOT NULL,
 	Hora_Venda VARCHAR(6) NOT NULL,
 	Total_Venda FLOAT NOT NULL,
-	COD_Cli INT NOT NULL);
+	COD_Cli INT);
 
 CREATE TABLE Itens_Venda(
 	COD_Itens_Venda INT NOT NULL,
 	Quantidade INT NOT NULL,
 	Sub_Total FLOAT NOT NULL,
-	COD_Venda INT NOT NULL,
-	COD_Produto INT NOT NULL);
+	COD_Venda INT,
+	COD_Produto INT);
 
 --Execução de PK e FK--
 ALTER TABLE Distribuidores 

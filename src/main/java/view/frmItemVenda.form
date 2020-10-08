@@ -298,10 +298,14 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtCodigoP">
       <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtCodigoPFocusLost"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCodigoPActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtSubTotal">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblCodigo">
       <Properties>
