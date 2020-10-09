@@ -301,17 +301,31 @@ public class frmVenda extends javax.swing.JFrame {
             Connection con = ConnectionFactory.getConnection();
             PreparedStatement stmt = null;
             ResultSet rs = null;
+            PreparedStatement stmt2 = null;
+            ResultSet rs2 = null;
         
             try {
-                
-            stmt = con.prepareStatement("SELECT SUM(Quantidade * Sub_Total) FROM Itens_Venda AS (SELECT Total_Venda FROM Vendas.Total_Venda)");
+            int i = 1;    
+            stmt = con.prepareStatement("SELECT Sub_Total FROM Itens_Venda WHERE COD_Venda = "+i+"");
             rs = stmt.executeQuery();
             
-            while (rs.next()) {
+            while (rs.next()){
+                float total = 0;
+                total = total + (Float.parseFloat(rs.getString("Sub_Total")));
                 
-                txtTotalVenda.setText(rs.getString("Total_Venda"));                
                 
+                stmt2 = con.prepareStatement("UPDATE Vendas SET Total_Venda = ? WHERE COD_Venda ="+txtCodigo.getText()+"");
+                stmt2.setFloat(1,total);
+                stmt2.executeUpdate();
+                i++;
+                
+                while (rs2.next()) {
+                
+                    txtTotalVenda.setText(rs.getString("Total_Venda"));                
+                
+                }       
             }
+            
           
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro na Consulta: "+ex);

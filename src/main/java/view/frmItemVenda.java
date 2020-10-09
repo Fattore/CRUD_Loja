@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import objects.ItemVenda;
+import java.sql.Statement;
 
 /*Listagem de clientes sem e-mail
  Listagem de produtos que estão vencidos na data atual
@@ -36,7 +37,7 @@ public class frmItemVenda extends javax.swing.JFrame {
         
         for(ItemVenda iv: ivDAO.read()){
             modelo.addRow(new Object[]{
-                iv.getCodigoVenda(),
+                iv.getCodigoItemVenda(),
                 iv.getQuantidade(),
                 iv.getSubTotal(),
                 iv.getCodigoVenda(),
@@ -300,19 +301,45 @@ public class frmItemVenda extends javax.swing.JFrame {
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
 
         if(this.ValidacoesCampos()) {
-           ItemVenda iv = new ItemVenda();
-           ItemVendaDAO ivDAO = new ItemVendaDAO();
-           
-           iv.setCodigoVenda(Integer.parseInt(txtCodigo.getText()));
-           iv.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
-           iv.setSubTotal(Float.parseFloat(txtSubTotal.getText()));
-           iv.setCodigoVenda(Integer.parseInt(txtCodigoV.getText()));
-           iv.setCodigoProd(Integer.parseInt(txtCodigoP.getText()));
+            ItemVenda iv = new ItemVenda();
+            ItemVendaDAO ivDAO = new ItemVendaDAO();
+            
+            if(txtCodigoV.getText() != "" && txtCodigoV.getText() != null) {
+                Connection con = ConnectionFactory.getConnection();
+                PreparedStatement stmt = null;   
 
-           ivDAO.create(iv);
+                try {
+                        float total = 0;
+                        total = total + (Float.parseFloat(txtSubTotal.getText()));
+                        
+
+                        stmt = con.prepareStatement("UPDATE Vendas SET Total_Venda = ? WHERE COD_Venda ="+txtCodigoV.getText()+"");
+                        if(Float.toString(total).isEmpty()){
+                            stmt.setString(1, null);
+                            stmt.executeUpdate();
+                        } else if(Float.toString(total) != "") {
+                            stmt.setFloat(1,total);
+                            stmt.executeUpdate();
+                        }
+
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Erro na Consulta: "+ex);
+                } finally {
+                    ConnectionFactory.closeConnection(con, stmt);
+                }
+            } else {    
            
-           this.carregarGrade();
-           this.limparCampos();
+            iv.setCodigoItemVenda(Integer.parseInt(txtCodigo.getText()));
+            iv.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
+            iv.setSubTotal(Float.parseFloat(txtSubTotal.getText()));
+            iv.setCodigoVenda(Integer.parseInt(txtCodigoV.getText()));
+            iv.setCodigoProd(Integer.parseInt(txtCodigoP.getText()));
+
+            ivDAO.create(iv);
+
+            this.carregarGrade();
+            this.limparCampos();
+           }
         } 
     }//GEN-LAST:event_btnNovoActionPerformed
 
@@ -338,11 +365,6 @@ public class frmItemVenda extends javax.swing.JFrame {
 
         if(!ValidacoesCodigo())
           return false;      
-       
-        if(txtCodigoV.getText().trim().isEmpty()) {
-            Mensagem.ExibirMensagemErro("Preencha o Código de Venda.");
-            return false;
-        }
         
         if(txtCodigoP.getText().trim().isEmpty()) {
             Mensagem.ExibirMensagemErro("Preencha o Código do Produto.");
@@ -375,7 +397,7 @@ public class frmItemVenda extends javax.swing.JFrame {
            ItemVenda iv = new ItemVenda();
            ItemVendaDAO ivDAO = new ItemVendaDAO();
            
-           iv.setCodigoVenda(Integer.parseInt(txtCodigo.getText()));
+           iv.setCodigoItemVenda(Integer.parseInt(txtCodigo.getText()));
            iv.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
            iv.setSubTotal(Float.parseFloat(txtSubTotal.getText()));
            iv.setCodigoVenda(Integer.parseInt(txtCodigoV.getText()));
@@ -399,7 +421,7 @@ public class frmItemVenda extends javax.swing.JFrame {
         ItemVenda iv = new ItemVenda();
         ItemVendaDAO ivDAO = new ItemVendaDAO();
 
-        iv.setCodigoVenda(Integer.parseInt(txtCodigo.getText()));
+        iv.setCodigoItemVenda(Integer.parseInt(txtCodigo.getText()));
             
         ivDAO.delete(iv);            
         
