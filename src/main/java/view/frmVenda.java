@@ -66,6 +66,7 @@ public class frmVenda extends javax.swing.JFrame {
         txtTotalVenda = new javax.swing.JTextField();
         jmbCliente = new javax.swing.JMenuBar();
         jmnOpcoes = new javax.swing.JMenu();
+        jmiAgrupar = new javax.swing.JMenuItem();
         jmiSair = new javax.swing.JMenuItem();
         jmnNavegacao = new javax.swing.JMenu();
         jmiClientes = new javax.swing.JMenuItem();
@@ -155,6 +156,14 @@ public class frmVenda extends javax.swing.JFrame {
                 jmnOpcoesActionPerformed(evt);
             }
         });
+
+        jmiAgrupar.setText("Agrupar");
+        jmiAgrupar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiAgruparActionPerformed(evt);
+            }
+        });
+        jmnOpcoes.add(jmiAgrupar);
 
         jmiSair.setText("Sair");
         jmiSair.addActionListener(new java.awt.event.ActionListener() {
@@ -292,57 +301,62 @@ public class frmVenda extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private float total = 0;
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
 
         if(this.ValidacoesCampos()) {
             Vendas venda = new Vendas();
             VendasDAO VDAO = new VendasDAO();
-        
+            
             Connection con = ConnectionFactory.getConnection();
             PreparedStatement stmt = null;
             ResultSet rs = null;
             PreparedStatement stmt2 = null;
             ResultSet rs2 = null;
-        
+
             try {
-            int i = 1;    
-            stmt = con.prepareStatement("SELECT Sub_Total FROM Itens_Venda WHERE COD_Venda = "+i+"");
-            rs = stmt.executeQuery();
-            
-            while (rs.next()){
-                float total = 0;
-                total = total + (Float.parseFloat(rs.getString("Sub_Total")));
-                
-                
-                stmt2 = con.prepareStatement("UPDATE Vendas SET Total_Venda = ? WHERE COD_Venda ="+txtCodigo.getText()+"");
-                stmt2.setFloat(1,total);
-                stmt2.executeUpdate();
-                i++;
-                
-                while (rs2.next()) {
-                
-                    txtTotalVenda.setText(rs.getString("Total_Venda"));                
-                
-                }       
-            }
-            
-          
+                int i = 1;    
+                stmt = con.prepareStatement("SELECT Sub_Total FROM Itens_Venda WHERE COD_Venda = "+i+"");
+                rs = stmt.executeQuery();
+
+                while (rs.next()){
+
+                    stmt2 = con.prepareStatement("UPDATE Vendas SET Total_Venda = ? WHERE COD_Venda ="+txtCodigo.getText()+"");
+                    total = (Float.parseFloat(rs.getString("Sub_Total")));
+                    
+                    if(Float.toString(total).isEmpty()){
+                        stmt2.setFloat(1, 0);
+                        stmt2.executeUpdate();
+                        i++;
+                    } else if(Float.toString(total) != "") {
+                        stmt2.setFloat(1,total);
+                        stmt2.executeUpdate();
+                        i++;
+                    } else {
+                        stmt2.setFloat(1,total);
+                        stmt2.executeUpdate();
+                        i++;
+                    }
+
+                    while (rs2.next()) {
+                        venda.setTotal(Float.parseFloat(rs.getString("Total_Venda")));
+                    }       
+                }
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro na Consulta: "+ex);
             } finally {
                 ConnectionFactory.closeConnection(con, stmt, rs);
             }
            
-           venda.setCodigo(Integer.parseInt(txtCodigo.getText()));
-           venda.setDataVenda(txtDataVenda.getText());
-           venda.setHoraVenda(txtHoraVenda.getText());
-           venda.setTotal(Float.parseFloat(txtTotalVenda.getText()));
-           venda.setCodigoCli(Integer.parseInt(txtCodigoCli.getText()));
+            venda.setCodigo(Integer.parseInt(txtCodigo.getText()));
+            venda.setDataVenda(txtDataVenda.getText());
+            venda.setHoraVenda(txtHoraVenda.getText());
+            venda.setCodigoCli(Integer.parseInt(txtCodigoCli.getText()));
 
-           VDAO.create(venda);
+            VDAO.create(venda);
            
-           this.carregarGrade();
-           this.limparCampos();
+            this.carregarGrade();
+            this.limparCampos();  
         } 
     }//GEN-LAST:event_btnNovoActionPerformed
 
@@ -394,10 +408,9 @@ public class frmVenda extends javax.swing.JFrame {
         txtCodigo.setText(grdClientes.getModel().getValueAt(row, 1).toString());
         txtDataVenda.setText(grdClientes.getModel().getValueAt(row, 2).toString());
         txtHoraVenda.setText(grdClientes.getModel().getValueAt(row, 3).toString());
-        txtTotalVenda.setText(grdClientes.getModel().getValueAt(row, 4).toString()); 
+        txtTotalVenda.setText("%.2f"+grdClientes.getModel().getValueAt(row, 4).toString()); 
         txtCodigoCli.setText(grdClientes.getModel().getValueAt(row, 5).toString());
     }
-    
     
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
        
@@ -509,6 +522,34 @@ public class frmVenda extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jmiVendaActionPerformed
 
+    private void jmiAgruparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAgruparActionPerformed
+
+        VendasDAO VDAO = new VendasDAO();
+        
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        try {
+            stmt = con.prepareStatement("SELECT COUNT(COD_Venda) FROM Vendas WHERE Data_Venda LIKE '%2020%' GROUP BY COD_Cli");
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                
+                Vendas venda = new Vendas();
+                
+                JOptionPane.showMessageDialog(null, rs);            
+                
+            }
+          
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro na Consulta: "+ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        
+    }//GEN-LAST:event_jmiAgruparActionPerformed
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -525,6 +566,7 @@ public class frmVenda extends javax.swing.JFrame {
     private javax.swing.JTable grdClientes;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuBar jmbCliente;
+    private javax.swing.JMenuItem jmiAgrupar;
     private javax.swing.JMenuItem jmiClientes;
     private javax.swing.JMenuItem jmiDistribuidores;
     private javax.swing.JMenuItem jmiItemVenda;

@@ -297,37 +297,38 @@ public class frmItemVenda extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    private float total = 0;   
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
 
         if(this.ValidacoesCampos()) {
             ItemVenda iv = new ItemVenda();
             ItemVendaDAO ivDAO = new ItemVendaDAO();
-            
-            if(txtCodigoV.getText() != "" && txtCodigoV.getText() != null) {
-                Connection con = ConnectionFactory.getConnection();
-                PreparedStatement stmt = null;   
+          
+            Connection con = ConnectionFactory.getConnection();
+            PreparedStatement stmt = null;   
 
-                try {
-                        float total = 0;
-                        total = total + (Float.parseFloat(txtSubTotal.getText()));
-                        
+            try {               
+                stmt = con.prepareStatement("UPDATE Vendas SET Total_Venda = ? +"+total+" WHERE COD_Venda ="+txtCodigoV.getText()+"");
+                total = (Float.parseFloat(txtSubTotal.getText()));
 
-                        stmt = con.prepareStatement("UPDATE Vendas SET Total_Venda = ? WHERE COD_Venda ="+txtCodigoV.getText()+"");
-                        if(Float.toString(total).isEmpty()){
-                            stmt.setString(1, null);
-                            stmt.executeUpdate();
-                        } else if(Float.toString(total) != "") {
-                            stmt.setFloat(1,total);
-                            stmt.executeUpdate();
-                        }
-
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Erro na Consulta: "+ex);
-                } finally {
-                    ConnectionFactory.closeConnection(con, stmt);
+                if(Float.toString(total).isEmpty()){
+                    stmt.setFloat(1, 0);
+                    stmt.executeUpdate();
+                } else if(Float.toString(total) != "") {
+                    stmt.setFloat(1,total);
+                    stmt.executeUpdate();
+                } else {
+                    stmt.setFloat(1,total);
+                    stmt.executeUpdate();
                 }
-            } else {    
+                        
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro na Consulta: "+ex);
+            } finally {
+                ConnectionFactory.closeConnection(con, stmt);
+            }
+              
            
             iv.setCodigoItemVenda(Integer.parseInt(txtCodigo.getText()));
             iv.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
@@ -339,7 +340,6 @@ public class frmItemVenda extends javax.swing.JFrame {
 
             this.carregarGrade();
             this.limparCampos();
-           }
         } 
     }//GEN-LAST:event_btnNovoActionPerformed
 
@@ -385,7 +385,7 @@ public class frmItemVenda extends javax.swing.JFrame {
         int row = grdClientes.getSelectedRow();
         txtCodigo.setText(grdClientes.getModel().getValueAt(row, 1).toString());
         txtQuantidade.setText(grdClientes.getModel().getValueAt(row, 2).toString());
-        txtSubTotal.setText(grdClientes.getModel().getValueAt(row, 3).toString());
+        txtSubTotal.setText("%.2f"+grdClientes.getModel().getValueAt(row, 3).toString());
         txtCodigoV.setText(grdClientes.getModel().getValueAt(row, 4).toString()); 
         txtCodigoP.setText(grdClientes.getModel().getValueAt(row, 5).toString());
     }
